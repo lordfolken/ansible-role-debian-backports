@@ -1,0 +1,4 @@
+---
+ - name: add debian backports repo
+   apt_repository:
+     - repo: "deb {{ repo_url_backports }} {{ ansible_distribution }}-backports main contrib non-free"
