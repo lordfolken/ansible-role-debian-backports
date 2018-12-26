@@ -1,0 +1,18 @@
+@ansible_home = "/etc/ansible/"
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "debian/stretch64"
+  config.vm.define "ansible-role-debian-backports-testing"
+ if Vagrant.has_plugin?("vagrant-cachier")
+    config.cache.scope = :machine
+  end
+  config.vm.synced_folder "../", "/vagrant", disabled: "True"
+  config.vm.synced_folder "../", "#{@ansible_home}/roles/ansible-role-debian-backports", type: "rsync"
+  config.vm.provision "shell", inline: "mkdir /vagrant 2> /dev/null "
+  config.vm.provision "shell", inline: "chown vagrant:vagrant /vagrant"
+  config.vm.provision "shell", inline: "cp /etc/ansible/roles/ansible-role-debian-backports/tests/test.yml /etc/ansible/test.yml"
+  config.vm.provision "ansible_local" do |ansible|
+    ansible.config_file = "#{@ansible_home}/roles/ansible-role-debian-backports/tests/ansible-vagrant.cfg"
+    ansible.playbook = "#{@ansible_home}/test.yml"
+ end
+end
