@@ -1,16 +1,16 @@
-  ---
-  galaxy_info:
-    author: Philipp Wollschlegel
-    description: Ansible role for debian backports repository 
-    license: GPL
-    min_ansible_version: 2.2 
-    platforms:
-    - name: Debian
-      versions:
-      - 8
-      - 9 
-      - 10
-    categories:
-    - repository
-    - debian
-  dependencies: []
+---
+galaxy_info:
+  author: Philipp Wollschlegel
+  description: Ansible role for debian backports repository 
+  license: GPL
+  min_ansible_version: 2.2 
+  platforms:
+  - name: Debian
+    versions:
+    - 8
+    - 9 
+    - 10
+  categories:
+  - repository
+  - debian
+dependencies: []
