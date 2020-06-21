@@ -23,9 +23,11 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        image:
-        - debian/jessie
-        - debian/buster
+        config:
+          - image: debian
+            tag: jessie
+          - image: debian
+            tag: buster
     steps:
       - name: checkout
         uses: actions/checkout@v2
@@ -35,4 +37,5 @@ jobs:
         uses: robertdebock/molecule-action@2.3.4
         with:
           image: "${{ matrix.image }}"
-          options: parallel
+          tag: "${{ matrix.tag }}"
+          options: "--parallel all"
