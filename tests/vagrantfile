@@ -1,7 +1,7 @@
 @ansible_home = "/etc/ansible/"
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "debian/stretch64"
+  config.vm.box = "generic/debian10"
   config.vm.define "ansible-role-debian-backports-testing"
  if Vagrant.has_plugin?("vagrant-cachier")
     config.cache.scope = :machine
