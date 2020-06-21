@@ -6,7 +6,7 @@ on:
     - master
     - release/*
 jobs:
-  test:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - name: checkout
@@ -14,13 +14,24 @@ jobs:
         with:
           path: "${{ github.repository }}"
       - name: molecule
-        uses: robertdebock/molecule-action@1.2.4
-  release:
-    needs:
-      - test
-    runs-on: debian-latest
-    steps:
-      - name: galaxy
-        uses: robertdebock/galaxy-action@1.0.3
+        uses: robertdebock/molecule-action@2.3.4
         with:
-          galaxy_api_key: ${{ secrets.galaxy_api_key }}
+          command: lint
+  test:
+    needs:
+      - lint
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        - debian/jessie
+        - debian/buster
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+        with:
+          path: "${{ github.repository }}"
+      - name: molecule
+        uses: robertdebock/molecule-action@2.3.4
+        with:
+          image: "${{ matrix.image }}"
+          options: parallel
