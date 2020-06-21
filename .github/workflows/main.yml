@@ -1,0 +1,21 @@
+---
+name: CI
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+        with:
+          path: "${{ github.repository }}"
+      - name: molecule
+        uses: robertdebock/molecule-action@1.2.4
+  release:
+    needs:
+      - test
+    runs-on: debian-latest
+    steps:
+      - name: galaxy
+        uses: robertdebock/galaxy-action@1.0.3
+        with:
+          galaxy_api_key: ${{ secrets.galaxy_api_key }}
