@@ -23,8 +23,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        - debian/jessie
-        - debian/buster
+        - debian:jessie
+        - debian:buster
     steps:
       - name: checkout
         uses: actions/checkout@v2
