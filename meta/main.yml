@@ -7,9 +7,9 @@ galaxy_info:
   platforms:
   - name: Debian
     versions:
-    - 8
-    - 9
-    - 10
+    - jessie
+    - stretch
+    - buster
 galaxy_tags:
   - repository
   - debian
